@@ -1,0 +1,49 @@
+name: Build pages
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build_package:
+    name: Build & Package
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - id: checkout
+        name: Retrieve source code
+        uses: actions/checkout@v4
+        timeout-minutes: 1
+      - id: setup-node
+        name: Setup Node.JS environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.11.0'
+        timeout-minutes: 5
+      - id: npm-install-deps
+        name: Install dependencies
+        run: npm ci
+        timeout-minutes: 5
+      - id: npm-build
+        name: Build the package
+        env:
+          PUBLIC_URL: 'https://dsc-info.github.io/proto-ika'
+        run: npm run build
+        timeout-minutes: 5
+      - id: upload-package
+        name: Upload the package to GH pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./build
+        timeout-minutes: 5
+  package_deploy:
+    name: Deploy to GH Pages
+    needs: build_package
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      pages: write
+    timeout-minutes: 10
+    steps:
+      - id: deploy-package
+        name: Deploy the package to GH pages
+        uses: actions/deploy-pages@v4
