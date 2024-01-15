@@ -1,0 +1,6 @@
+.toolbar {
+    border-bottom: 1px solid #f0f0f0;
+}
+.toolbar__title {
+    flex: 1;
+}
