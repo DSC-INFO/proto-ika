@@ -1,14 +1,19 @@
 import React from 'react';
 import { TextField, Button } from '@mui/material';
+import AppConfig from './model';
 
-const ConfigurationForm = ({ onSubmit }: {onSubmit: any}) => {
+interface AppConfigFormProps {
+  onAppConfigChange: (newModel: AppConfig) => void
+}
+
+const AppConfigForm = (props: AppConfigFormProps) => {
   const [authority, setAuthority] = React.useState('');
   const [clientId, setClientId] = React.useState('');
   const [metadataUrl, setMetadataUrl] = React.useState('');
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    onSubmit({ authority, clientId, metadataUrl });
+    props.onAppConfigChange({ authority, clientId, metadataUrl });
   };
 
   return (
@@ -41,4 +46,4 @@ const ConfigurationForm = ({ onSubmit }: {onSubmit: any}) => {
   );
 };
 
-export default ConfigurationForm;
+export default AppConfigForm;

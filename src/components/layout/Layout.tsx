@@ -16,7 +16,7 @@ function Layout(props: PropsWithChildren) {
                 noWrap
                 className={styles.toolbar__title}
               >
-                DSC-INFO Ika
+                DSC-INFO Indemnités Kilométriques
               </Typography>
             </Toolbar>
             <main>

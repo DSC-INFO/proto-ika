@@ -1,29 +1,24 @@
-"use client"
 import { Dispatch, SetStateAction, useCallback, useState } from "react"
+import AppConfig from "./model"
+import { Optional } from "../../lib"
 
-export interface AppConfig {
-    authority: string
-    clientId: string
-    metadataUrl: string
-}
-
-export type Optional<T>  = T | undefined
+const appConfigKey = 'ika-auth-config'
 
 function loadAppConfigFromStorage() {
-    const configItem = global.window?.localStorage.getItem('config')
+    const configItem = window.localStorage.getItem(appConfigKey)
     if (configItem) {
         const config = JSON.parse(configItem) 
         return config as AppConfig
     } else {
-    return undefined
+        return undefined
     }
 }
 
 function saveAppConfigToStorage(value : Optional<AppConfig>) {
     if (value) {
-        global.window?.localStorage.setItem('config', JSON.stringify(value))
+        window.localStorage.setItem(appConfigKey, JSON.stringify(value))
     } else {
-        global.window?.localStorage.removeItem('config')
+        window.localStorage.removeItem(appConfigKey)
     }
 }
 

@@ -1,30 +1,26 @@
 import { AuthProvider, AuthProviderProps } from 'react-oidc-context';
-import useAppConfig from '../app-config/useAppConfig';
+import { AppConfig, AppConfigForm, useAppConfig } from '../app-config'
 import Layout from '../layout/Layout';
-import ConfigurationForm from '../../configurationForm';
 import Main from '../../main';
 import { User } from 'oidc-client-ts';
+import { useCallback } from 'react';
 
 const App = () => {
+  // Retrieve application config
   const [appConfig, setAppConfig] = useAppConfig();
 
+  // Handle application config setup
+  const handleConfigSubmit = useCallback((formData: AppConfig) => setAppConfig(formData), [setAppConfig])
+
+  const onSigninCallback = useCallback((_user: User | void): void => {
+    window.history.replaceState({}, document.title, window.location.pathname)
+    },
+    [])
   
-  const handleConfigSubmit = (formData:any) => {
-    console.log(formData)
-    setAppConfig(formData as any)
-  }
-  
+  // If the application config exists
   if (appConfig) {
     
-    const onSigninCallback = (_user: User | void): void => {
-          window.history.replaceState(
-             {},
-              document.title,
-             window.location.pathname
-          )
-    }
-    
-    // Handle application authentication
+    // Configure application authentication
     const authProviderProps: AuthProviderProps = {
       authority: appConfig.authority,
       metadataUrl: appConfig.metadataUrl,
@@ -32,13 +28,13 @@ const App = () => {
       redirect_uri: global.window.location.toString(),
       onSigninCallback
     }
+
+    // Provide main layout
     return <AuthProvider {...authProviderProps}><Main>
       <Layout/></Main></AuthProvider>
   } else {
-    console.log('AppConfig missing')
     // Display configuration form
-    return (<ConfigurationForm onSubmit={handleConfigSubmit}/>
-    )
+    return <AppConfigForm onAppConfigChange={handleConfigSubmit}/>
   }
 };
 
