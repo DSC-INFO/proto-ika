@@ -1,8 +1,5 @@
-import { AppBar, BottomNavigation, BottomNavigationAction, Box, Button, Container, CssBaseline, IconButton, Paper, Toolbar, Typography } from "@mui/material";
+import { AppBar, BottomNavigation, BottomNavigationAction, Container, CssBaseline, Paper, Toolbar, Typography } from "@mui/material";
 import { PropsWithChildren, useState } from "react";
-import styles from './Layout.module.css';
-import RestoreIcon from '@mui/icons-material/Restore';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { Garage, Newspaper, Menu } from "@mui/icons-material";
 import VehiculeContainer from "../vehicules/VehiculeContainer";
