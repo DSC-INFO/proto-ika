@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useCallback, useState } from "react"
 import AppConfig from "./model"
-import { Optional } from "../../lib"
+import { Optional } from "."
 
 const appConfigKey = 'ika-auth-config'
 

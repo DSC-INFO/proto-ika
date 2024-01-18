@@ -1,6 +1,6 @@
 import React from 'react';
 import { TextField, Button } from '@mui/material';
-import AppConfig from './model';
+import AppConfig from '../../lib/model';
 
 interface AppConfigFormProps {
   appConfig?: AppConfig,
