@@ -1,4 +1,4 @@
-import { PropsWithChildren, useCallback, useEffect, useState } from "react";
+import { PropsWithChildren, useEffect, useState } from "react";
 import { AppConfig } from '../../lib'
 import { AuthProvider, AuthProviderProps, hasAuthParams, useAuth } from "react-oidc-context";
 import { User } from "oidc-client-ts";
