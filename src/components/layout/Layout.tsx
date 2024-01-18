@@ -1,7 +1,7 @@
 import { AppBar, BottomNavigation, BottomNavigationAction, Container, CssBaseline, Paper, Toolbar, Typography } from "@mui/material";
 import { PropsWithChildren, useState } from "react";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import { Garage, Newspaper, Menu } from "@mui/icons-material";
+import { Garage, Newspaper } from "@mui/icons-material";
 import VehiculeContainer from "../vehicules/VehiculeContainer";
 
 function Layout(props: PropsWithChildren) {

@@ -5,13 +5,14 @@ import { useAuth } from "react-oidc-context"
 
 function VehiculeContainer() {
   const [vehicleArray, setVehicleArray] = useState([])
-  const { user } = useAuth()
+  // user cannot be an invalid value as we are in the authenticated part of the app
+  const { access_token } = useAuth().user!;
 
   useEffect(() => {
     const abortController = new AbortController()
     fetch('https://t8sbjgvg7g.execute-api.eu-west-3.amazonaws.com/test-handler', {
       headers: {
-        "Authorization": `Bearer ${user!.access_token}`
+        "Authorization": `Bearer ${access_token}`
       },
       signal: abortController.signal
     })
@@ -21,7 +22,7 @@ function VehiculeContainer() {
     return () => {
       abortController.abort()
     }
-  }, [setVehicleArray])
+  }, [access_token, setVehicleArray])
 
     return <><Stack spacing={2}>
       {vehicleArray.map(vehicule => {
