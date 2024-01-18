@@ -3,17 +3,18 @@ import { TextField, Button } from '@mui/material';
 import AppConfig from './model';
 
 interface AppConfigFormProps {
+  appConfig?: AppConfig,
   onAppConfigChange: (newModel: AppConfig) => void
 }
 
-const AppConfigForm = (props: AppConfigFormProps) => {
-  const [authority, setAuthority] = React.useState('');
-  const [clientId, setClientId] = React.useState('');
-  const [metadataUrl, setMetadataUrl] = React.useState('');
+const AppConfigForm = ({ appConfig, onAppConfigChange }: AppConfigFormProps) => {
+  const [authority, setAuthority] = React.useState(appConfig? appConfig.authority: '');
+  const [clientId, setClientId] = React.useState(appConfig? appConfig.clientId: '');
+  const [metadataUrl, setMetadataUrl] = React.useState(appConfig? appConfig.metadataUrl: '');
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    props.onAppConfigChange({ authority, clientId, metadataUrl });
+    onAppConfigChange({ authority, clientId, metadataUrl });
   };
 
   return (

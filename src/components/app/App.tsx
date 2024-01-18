@@ -14,11 +14,13 @@ const App = () => {
 
   const onSigninCallback = useCallback((_user: User | void): void => {
     window.history.replaceState({}, document.title, window.location.pathname)
-    },
-    [])
+  },
+  [])
   
+  const forceShowConfigParameter = -1 !== window.location.search.indexOf('showConfig')
+
   // If the application config exists
-  if (appConfig) {
+  if (appConfig && !forceShowConfigParameter) {
     
     // Configure application authentication
     const authProviderProps: AuthProviderProps = {
@@ -26,7 +28,8 @@ const App = () => {
       metadataUrl: appConfig.metadataUrl,
       client_id: appConfig.clientId,
       redirect_uri: global.window.location.toString(),
-      onSigninCallback
+      onSigninCallback,
+      scope: "openid profile email alpha/read"
     }
 
     // Provide main layout
@@ -34,7 +37,7 @@ const App = () => {
       <Layout/></Main></AuthProvider>
   } else {
     // Display configuration form
-    return <AppConfigForm onAppConfigChange={handleConfigSubmit}/>
+    return <AppConfigForm appConfig={appConfig} onAppConfigChange={handleConfigSubmit}/>
   }
 };
 
